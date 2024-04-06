@@ -59,13 +59,13 @@ void UDPserver(int sockfd, struct sockaddr_in *client) {
     int len = sizeof(*client);
 
     printf("I'm listenning UDP\n");
-    if (recvfrom(sockfd, s, sizeof(s) - 1, 0, (struct sockaddr*)&client, &len) < 0){ // Maybe here is overflow?)
+    if (recvfrom(sockfd, s, sizeof(s) - 1, 0, (struct sockaddr*)client, &len) < 0){ // Maybe here is overflow?)
         perror("ERROR recvfrom");
         close(sockfd); 
         exit(-1); 
     }
     printf("I'm server, I recieved \"%s\"\n", s);
-    if (sendto(sockfd, "Hello, I'm server!", 19, 0, (struct sockaddr*)&client, len) < 0){
+    if (sendto(sockfd, "Hello, I'm server!", 19, 0, (struct sockaddr*)client, len) < 0){
         perror("ERROR sendto");
         close(sockfd); 
         exit(-1); 
